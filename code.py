@@ -2,12 +2,12 @@ from random import randint, randrange
 
 
 
-class bank:
+class Bank:
     def __init__(self):  #Initial Variables Constructor 
         self.accn=000
         self.name=''
         self.acctype=''
-        self.balance=0
+        self.balance= 0
         self.cno = 'NA'
         self.dno= 'NA'
         self.cheque =0
@@ -20,15 +20,22 @@ class bank:
         except:
             self.accn=int(input("Please Enter valid account No: "))
         self.name = input("Enter your name: ")
-        self.accctype = input("Enter S for Savings, C for Current: ")
-        self.balance=input("Initial balance if current account then (balance<=1000), If savings then (balance>=2000): ")
+        while(True):
+            self.acctype = input("Enter S for Savings, C for Current: ")
+            if(self.acctype == 'S' or self.acctype =='C'):
+                break
+        while(True):
+            self.balance=input("Initial balance if Current account then min balance should be 1000, If savings then min balance should be 2000: ")
+            if(self.acctype=='S' and int(self.balance)>=2000): break
+            if(self.acctype=='C' and int(self.balance)>=1000):break
+
         print("\t \tWelcome to Bank \n")
 
     def showbalance(self):
         '''Function to Show Balance'''
 
         print("Account Number:" + str(self.accn))
-        print("Balance: " + str(self.balance))
+        print("Balance: " + str(self.balance)+'\n')
 
     def downstate(self):
         '''Function to Download a Statement with name as filename'''
@@ -38,37 +45,39 @@ class bank:
         fi.write("Credit Card: "+str(self.cno)+'\n')
         fi.write("Debit Card: "+str(self.dno)+'\n')
         fi.write("Issued Cheque: "+str(self.cheque)+'\n')
-        print("Sucessfully Generated !")
+        print("Sucessfully Generated ! \n")
 
     def deposit(self):
         '''Function to Deposit balance in account'''
 
         try:
             amt = int(input("Enter amount to Deposit: "))
-            self.balance += abs(amt)
+            self.balance = int(self.balance)+ abs(amt)
         except:
             print("Invalid input. Enter only integers !")
+        print("Transaction Successfull \n")
 
     def withdraw(self):
         '''Function to Withdraw balance form account'''
 
         try:
             amt = int(input("Enter amount to Withdraw: "))
-            self.balance -= abs(amt)
+            self.balance = int(self.balance) - abs(amt)
         except:
             print("Invalid input. Enter only integers !")
+        print("Transaction Successfull \n")
 
     def newcredit(self):
         '''Function to Issue a Credit Card with 12 to 14 digit number'''
 
         self.cno= str(randrange(100000000000, 100000000000000))
-        print("\t Sucess \n")
+        print("\t Success \n")
     
     def newdebit(self):
         '''Function to issue a debit card of 12 to 14 digits'''
 
         self.dno= str(randrange(100000000000, 100000000000000))
-        print("\t Sucess \n")
+        print("\t Success \n")
     
     def newcheque(self):
         '''Function to issue Cheque Book and rthe cost is deducted'''
@@ -76,11 +85,11 @@ class bank:
         print("Please Note Cheque book price is 100, which will be deducted from account")
         self.cheque += 1
         self.balance =int(self.balance)-100
-        print("\t Sucessfully Issued\n")
+        print("\t Successfully Issued\n")
 
 
 n =''
-p= bank()  #Create object from class
+p= Bank()  #Create object from class
 print("\n --------BANK SYSTEM------------- \n")
 while(n!=9):  #Loop to take choices
     print("1. Create Account ")
@@ -95,21 +104,21 @@ while(n!=9):  #Loop to take choices
     n=input("Enter a Choice: ")
     
     if n=='9':     #Conditions to perform according to the entered choice 
+        print("******** Thank You ******* \n")
         break
     elif n=='1':
         p.createAccn()
     elif n=='2':
         p.showbalance()
-
     elif n=='3':
         p.downstate()
     elif n=='4':
         p.deposit()
     elif n=='5':
-        p.withdraw
+        p.withdraw()
     elif n=='6':
-        p.newcredit()
-    elif n=='7':
         p.newdebit()
+    elif n=='7':
+        p.newcredit()
     elif n=='8':
         p.newcheque()
