@@ -1,0 +1,8 @@
+	----Bank Satatement----	 
+Account Number : 111222
+Customer Name: 1111
+Account Type: C
+Current Balance: -4098
+Credit Card: 62747716456460
+Debit Card: 60237954184092
+Issued Cheque: 1

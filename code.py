@@ -1,16 +1,31 @@
+from math import nan
 from random import randint, randrange
+from unicodedata import name
+
+class Person:
+    
+    def __init__(self):
+        self.name =''
+    def customer(self):
+        while(True):
+            self.name=input("Enter your name: ")
+            if(self.name.isalpha()):
+                break
+    def showname(self):
+        print(self.name)
 
 
-
-class Bank:
+class Bank(Person):
     def __init__(self):  #Initial Variables Constructor 
+        # Person.__init__(self)
         self.accn=000
-        self.name=''
+        #self.name=''
         self.acctype=''
         self.balance= 0
         self.cno = 'NA'
         self.dno= 'NA'
         self.cheque =0
+        super.name = ''
 
     
     def createAccn(self): 
@@ -19,7 +34,8 @@ class Bank:
             self.accn=int(input("Enter account No: "))
         except:
             self.accn=int(input("Please Enter valid account No: "))
-        self.name = input("Enter your name: ")
+        #self.name = input("Enter your name: ")
+
         while(True):
             self.acctype = input("Enter S for Savings, C for Current: ")
             if(self.acctype == 'S' or self.acctype =='C'):
@@ -35,6 +51,7 @@ class Bank:
         '''Function to Show Balance'''
 
         print("Account Number:" + str(self.accn))
+        print("Account Holder Name:" + str(self.name()))
         print("Balance: " + str(self.balance)+'\n')
 
     def downstate(self):
@@ -90,35 +107,39 @@ class Bank:
 
 n =''
 p= Bank()  #Create object from class
+c= Person()
 print("\n --------BANK SYSTEM------------- \n")
-while(n!=9):  #Loop to take choices
-    print("1. Create Account ")
-    print("2. Show Balance ")
-    print("3. Download Statement")
-    print("4. Deposit Amount")
-    print("5. Withdraw Amount ")
-    print("6. Add Debit Card")
-    print("7. Add Credit Card")
-    print("8. Add Cheque Book")
-    print("9. Exit ")
+while(n!=10):  #Loop to take choices
+    print("1. Create Customer")
+    print("2. Create Account ")
+    print("3. Show Balance ")
+    print("4. Download Statement")
+    print("5. Deposit Amount")
+    print("6. Withdraw Amount ")
+    print("7. Add Debit Card")
+    print("8. Add Credit Card")
+    print("9. Add Cheque Book")
+    print("10. Exit ")
     n=input("Enter a Choice: ")
     
-    if n=='9':     #Conditions to perform according to the entered choice 
+    if n=='10':     #Conditions to perform according to the entered choice 
         print("******** Thank You ******* \n")
         break
     elif n=='1':
-        p.createAccn()
+        c.customer()
     elif n=='2':
-        p.showbalance()
+        p.createAccn()
     elif n=='3':
-        p.downstate()
+        p.showbalance()
     elif n=='4':
-        p.deposit()
+        p.downstate()
     elif n=='5':
-        p.withdraw()
+        p.deposit()
     elif n=='6':
-        p.newdebit()
+        p.withdraw()
     elif n=='7':
-        p.newcredit()
+        p.newdebit()
     elif n=='8':
+        p.newcredit()
+    elif n=='9':
         p.newcheque()
