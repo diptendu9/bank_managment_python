@@ -1,3 +1,0 @@
-name : Diptendu , Account No : 234324 , Balance : 500
-name : Rahulll , Account No : 23432 , Balance : 5
-name : dip , Account No : 3245345 , Balance : 3454

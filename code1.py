@@ -6,21 +6,40 @@ import pathlib
 import os, pickle
 
 
+class Person:
+    #name=''
+    def __init__(self):
+        self.aadhaar =''
+        self.name= ''
+        self.accn = 0
+    def customer(self):
+        while(True):
+            Person.name=input("Enter your Aadhaar No: ")
+            if(Person.name.isdigit()):
+                break
+        
+        while(True):
+            Person.accn= input("Enter account No:  ")
+            if(Person.accn.isdigit() and int(Person.accn)>0):
+                break
+        
+        #self.name = input("Enter your name: ")
+        while(True):
+            Person.name=input("Enter your name: ")
+            if(Person.name.isalpha()):
+                break
+    # def showname(self):
+    #     print(self.name)
 
-
-
-    
-
-
-class Bank:
+class Bank(Person):
     
     cno = 'NA'
     dno= 'NA'
     cheque =0
     def __init__(self):  #Initial Variables Constructor 
-        #Person.__init__(self)
-        self.accn= 000
-        self.name=''
+        Person.__init__(self)
+        # self.accn= 000
+        # self.name=''
         self.acctype=''
         self.balance= 0
         self.cno = 'NA'
@@ -31,16 +50,16 @@ class Bank:
     
     def createAccn(self): 
         '''Function to Create an Account'''
-        while(True):
-            self.accn= input("Enter account No:  ")
-            if(self.accn.isdigit() and int(self.accn)>0):
-                break
+        # while(True):
+        #     self.accn= input("Enter account No:  ")
+        #     if(self.accn.isdigit() and int(self.accn)>0):
+        #         break
         
-        #self.name = input("Enter your name: ")
-        while(True):
-            self.name=input("Enter your name: ")
-            if(self.name.isalpha()):
-                break
+        # #self.name = input("Enter your name: ")
+        # while(True):
+        #     self.name=input("Enter your name: ")
+        #     if(self.name.isalpha()):
+        #         break
 
         while(True):
             self.acctype = input("Enter S for Savings, C for Current: ")
@@ -67,9 +86,8 @@ class Bank:
         fi.write("Credit Card: "+str(i.cno)+'\n')
         fi.write("Debit Card: "+str(i.dno)+'\n')
         fi.write("Issued Cheque: "+str(i.cheque)+'\n')
-
-
         print("Sucessfully Generated ! \n")
+
         print('\t----Bank Satatement----\t \n'+"Account Number : "+ str(i.accn)+"\nCustomer Name: "+str(i.name)+"\nAccount Type: "+str(i.acctype)+ "\nCurrent Balance: "+str(i.balance)+'\n')
         print("Credit Card: "+str(i.cno)+'\n')
         print("Debit Card: "+str(i.dno)+'\n')
@@ -122,17 +140,7 @@ class Bank:
 
 
 
-class Person(Bank):
-    #name=''
-    def __init__(self):
-        self.aadhaar =''
-    def customer(self):
-        while(True):
-            Person.name=input("Enter your Aadhaar No: ")
-            if(Person.name.isdigit()):
-                break
-    # def showname(self):
-    #     print(self.name)
+
 
 
 
@@ -140,15 +148,15 @@ class Person(Bank):
 
     
 def writeAccount():
-    account = Person()
-    account.createAccn()
+    account = Bank()
     account.customer()
+    account.createAccn()
     writeAccountsFile(account)
 
 # Function to display all the details
 
 def displayAll():
-    account=Person()
+    account=Bank()
     file = pathlib.Path("accounts.data")
     if file.exists ():
         infile = open('accounts.data','rb')
@@ -161,8 +169,7 @@ def displayAll():
 
 def statement(num):
     #account=Bank()
-    account=Person()
-
+    account=Bank()
     file = pathlib.Path("accounts.data")
     if file.exists ():
         infile = open('accounts.data','rb')
@@ -177,7 +184,7 @@ def statement(num):
 
 # Function to display the account balance if a record is present
 def displaybal(num):
-    account = Person()
+    account = Bank()
     file = pathlib.Path("accounts.data")
     if file.exists ():
         infile = open('accounts.data','rb')
@@ -200,7 +207,7 @@ def displaybal(num):
 
 # Function to allow the deposit and withdraw transaction to occur
 def depositAndWithdraw(num1,num2):
-    account=Person()
+    account=Bank()
     file = pathlib.Path("accounts.data")
     infile = open('accounts.data','rb')
     mylist = pickle.load(infile)
@@ -269,9 +276,11 @@ def writeAccountsFile(account) :
 
 def modifyproduct(num,action):
     """
-    Function to add Products to Customers such as Debit Card, Credit Card, Cheque Book
+    Reads data from accounts.data
+    Finds matched account number from num1
+    calls modifyCards() passing the account matched as 'item' and choice as num2
     """
-    account = Person()
+    account = Bank()
     file = pathlib.Path("accounts.data")
     infile = open('accounts.data','rb')
     mylist = pickle.load(infile)
@@ -302,42 +311,44 @@ n =''
 
 print("\n --------BANK SYSTEM------------- \n")
 while(n!=10):  #Loop to take choices
-    print("1. Create Customer's Bank Account")
-    #print("2. Create Account ")
-    print("2. Show Balance ")
-    print("3. Download Statement")
-    print("4. Deposit Amount")
-    print("5. Withdraw Amount ")
-    print("6. Add Debit Card")
-    print("7. Add Credit Card")
-    print("8. Add Cheque Book")
-    print("9. Exit ")
+    print("1. Create Customer")
+    print("2. Create Account ")
+    print("3. Show Balance ")
+    print("4. Download Statement")
+    print("5. Deposit Amount")
+    print("6. Withdraw Amount ")
+    print("7. Add Debit Card")
+    print("8. Add Credit Card")
+    print("9. Add Cheque Book")
+    print("10. Exit ")
     n=input("Enter a Choice: ")
     
-    if n=='9':     #Conditions to perform according to the entered choice 
+    if n=='10':     #Conditions to perform according to the entered choice 
         print("******** Thank You ******* \n")
         break
     elif n=='1':
-        writeAccount()
+        Person.customer(Person)
     elif n=='2':
+        writeAccount()
+    elif n=='3':
         num= int(input("Enter account No: "))
         displaybal(num)
-    elif n=='3':
+    elif n=='4':
         ac= int(input("Enter account nymber:"))
         statement(ac)
         #p.downstate()
-    elif n=='4':
-        num= int(input("Enter account No: "))
-        depositAndWithdraw(num,1)
     elif n=='5':
         num= int(input("Enter account No: "))
-        depositAndWithdraw(num,2)
+        depositAndWithdraw(num,1)
     elif n=='6':
         num= int(input("Enter account No: "))
-        modifyproduct(num, 1)
+        depositAndWithdraw(num,2)
     elif n=='7':
         num= int(input("Enter account No: "))
-        modifyproduct(num, 2)
+        modifyproduct(num, 1)
     elif n=='8':
+        num= int(input("Enter account No: "))
+        modifyproduct(num, 2)
+    elif n=='9':
         num= int(input("Enter account No: "))
         modifyproduct(num, 3)

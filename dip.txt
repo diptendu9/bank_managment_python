@@ -1,0 +1,8 @@
+	----Bank Satatement----	 
+Account Number : 1234
+Customer Name: dip
+Account Type: C
+Current Balance: 2250
+Credit Card: 84887157719306
+Debit Card: 97554508463382
+Issued Cheque: 2
